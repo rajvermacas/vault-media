@@ -20,14 +20,13 @@ individual pages.
 ## Sources
 
 - [[wiki/sources/llm-wiki-idea]] — Seed design note describing the LLM Wiki pattern and its workflows.
+- [[wiki/sources/reddit-city-as-character-series]] — Reddit-sourced series recommendations for settings that function as characters.
 
 ## Queries and analyses
 
-No durable query pages yet. File useful answers in `wiki/queries/` when they are
-worth preserving beyond the current conversation.
+- [[wiki/queries/city-as-character-series]] — Screened recommendations for the *Twin Peaks*/*Dark*/*Ozark*/*Banshee* atmosphere.
 
 ## Maintenance queue
 
 - Decide which domains this vault will cover first.
-- Add the first domain-specific source to `raw/`.
 - Run a lint pass after the first few ingests and refine [[AGENTS]] if needed.
