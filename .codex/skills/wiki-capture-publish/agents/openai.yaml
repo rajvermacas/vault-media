@@ -1,0 +1,4 @@
+interface:
+  display_name: "Wiki Capture & Publish"
+  short_description: "Capture, dedupe, ingest, lint, commit, push"
+  default_prompt: "Use $wiki-capture-publish to capture this discussion into the vault, ingest only new information, lint it, and commit and push the focused changes."

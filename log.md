@@ -51,3 +51,11 @@ Append-only activity log. Each entry records a meaningful change to the wiki.
 
 - Checked wikilinks, source traceability, maintained-page reachability, and duplicate maintained-page titles.
 - Flagged all streaming details as country- and date-dependent snapshots; no broken wikilinks found.
+
+## [2026-07-18] maintenance | wiki capture and publish skill
+
+- Added project-local `.codex/skills/wiki-capture-publish/SKILL.md` for
+  conversation capture, duplicate-aware ingest, linting, and focused Git
+  commit/push handling.
+- Added its deterministic duplicate scanner and verified exact-copy detection
+  against the existing raw/wiki content.
