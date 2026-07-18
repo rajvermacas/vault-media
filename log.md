@@ -57,5 +57,5 @@ Append-only activity log. Each entry records a meaningful change to the wiki.
 - Added project-local `.codex/skills/wiki-capture-publish/SKILL.md` for
   conversation capture, duplicate-aware ingest, linting, and focused Git
   commit/push handling.
-- Added its deterministic duplicate scanner and verified exact-copy detection
-  against the existing raw/wiki content.
+- Updated duplicate handling to require dynamic, claim-level semantic review by
+  the agent rather than a deterministic scanner or fixed threshold.

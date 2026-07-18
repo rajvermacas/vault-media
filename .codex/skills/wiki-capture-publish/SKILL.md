@@ -1,6 +1,6 @@
 ---
 name: wiki-capture-publish
-description: Capture the current discussion or supplied source material as immutable raw Markdown, deduplicate it against the existing raw and maintained wiki, ingest only novel durable claims, lint the Obsidian vault, and commit and push the focused changes. Use when the user asks to dump a conversation into this vault, capture and ingest notes, maintain the wiki after a discussion, or run the complete raw-to-published workflow.
+description: Capture the current discussion or supplied source material as immutable raw Markdown, semantically compare it with the existing raw and maintained wiki, ingest only novel durable claims, lint the Obsidian vault, and commit and push the focused changes. Use when the user asks to dump a conversation into this vault, capture and ingest notes, maintain the wiki after a discussion, or run the complete raw-to-published workflow.
 ---
 
 # Wiki Capture & Publish
@@ -48,30 +48,32 @@ Raw files are append-only and immutable. If a new capture is genuinely a new
 version, create a new dated file and state what it supersedes; do not edit the
 older capture.
 
-### 2. Deduplicate before writing
+### 2. Deduplicate by semantic review before writing
 
-Before adding the candidate to `raw/`, run the bundled scanner from the
-repository root against the temporary draft:
+Do not use a deterministic duplicate scanner or a fixed similarity threshold.
+Dynamically identify the candidate's topics, named entities, questions,
+decisions, dates, ratings, availability claims, and other substantive claims.
+Search for those signals across `raw/`, `wiki/sources/`, and the smallest
+relevant set of maintained pages, then read the likely matches in full.
 
-```bash
-python3 .codex/skills/wiki-capture-publish/scripts/duplicate_scan.py \
-  --root . --candidate /path/to/candidate.md
-```
+Compare the candidate and each match claim by claim. Classify each item as:
 
-Use scanner results as evidence, then read the reported matches:
+- **Repeat:** the same fact, recommendation, decision, or source context is
+  already preserved, even if the wording differs.
+- **Delta:** a genuinely new fact, source, date/version, user preference,
+  resolution, or useful synthesis is present.
+- **Conflict:** the candidate and existing material disagree; preserve both
+  claims with provenance and explain the disagreement.
 
-- **Exact normalized match:** skip the raw write and ingest. Append a short
-  duplicate-skipped note to `log.md` only if that event is useful to preserve.
-- **High overlap or same subject:** compare claims, dates, and source context.
-  If there is no material new information, skip it. If there is a new version,
-  date, correction, or source perspective, capture it as a new raw file and
-  link the earlier capture; preserve both accounts when they disagree.
-- **Low overlap:** proceed, while still checking the relevant source notes and
-  maintained pages for partial duplication.
+Treat reordered prose, changed capture metadata, a new filename, and paraphrases
+with no new meaning as repeats. Do not append a repeated claim to a maintained
+page merely because it arrived through a new capture.
 
-Do not treat a changed timestamp, reordered prose, or a new filename as novel
-information. Do not append the same claim to a maintained page twice merely
-because it arrived through a new capture.
+If every substantive item is a repeat, skip both the raw write and ingest. Add a
+short `duplicate-skipped` entry to `log.md` only when the attempted capture is
+useful audit history. If the candidate contains a delta or conflict, preserve
+the complete candidate as a new immutable raw file, link a new version to the
+earlier capture when appropriate, and ingest only the delta/conflict.
 
 ### 3. Ingest only the delta
 
@@ -110,19 +112,13 @@ current branch to its configured upstream with ordinary `git push`; never force
 push, rewrite history, or stage the whole repository indiscriminately.
 
 If lint has unresolved high-confidence errors, stop before committing and report
-them. If duplicate detection produced no tracked changes, do not create an
+them. If semantic review found no material new information, do not create an
 empty commit or push; report the existing matching source instead. If commit
 works but push fails, keep the commit and report the exact recovery needed.
 
 ## Completion report
 
-Report the raw capture decision, files changed, duplicate evidence considered,
-lint result, commit hash, push result, and unresolved questions. Include links
-to the new or updated wiki pages and source note.
-
-## Bundled script
-
-`scripts/duplicate_scan.py` provides deterministic normalized-content hashes,
-token overlap, and title overlap across `raw/` and maintained Markdown pages.
-It is a triage aid, not a substitute for reading the candidate and the matched
-pages; semantic novelty still requires judgment.
+Report the raw capture decision, similar sources reviewed, claim-level delta or
+conflict decision, files changed, lint result, commit hash, push result, and
+unresolved questions. Include links to the new or updated wiki pages and source
+note.
