@@ -19,14 +19,36 @@ Before changing anything, read `AGENTS.md`, `index.md`, and relevant files under
 smallest relevant set of existing raw files, source notes, query pages, and
 concept/entity pages. Project-local memory overrides global preferences.
 
+## Session checkpoint (default)
+
+Treat the most recent successful ingest in the current conversation as the
+session checkpoint. On a later ingestion request in that same session, use only
+the substantive discussion, supplied material, decisions, and new claims after
+that checkpoint. Use earlier messages only as context needed to understand a
+new delta; do not copy them into the new raw capture or ingest them again.
+
+After each successful ingest and lint, record a short checkpoint in `log.md`,
+such as the last topic or user request included and whether the scope was
+`full-session` or `since <previous checkpoint>`. The next invocation should use
+the latest checkpoint in the conversation first and the log entry as a fallback.
+If the boundary is ambiguous, choose the narrower, later boundary and report
+what was excluded. Do not advance the checkpoint when the ingest was abandoned
+before its raw/wiki changes were completed.
+
+Only reset this default when the user explicitly asks to re-ingest, refresh,
+backfill, or rebuild the entire session/history.
+
 ## Workflow
 
 ### 1. Capture a candidate raw source
 
 Use the current conversation as the source when the user asks to dump what was
-discussed. Preserve the salient discussion, claims, decisions, links, dates,
-ratings, and availability snapshots without inventing or silently correcting
-facts. For an already supplied artifact, preserve its content and add only
+discussed. Apply the session checkpoint first: capture only the new material
+since the last successful ingest by default. Preserve the salient new claims,
+decisions, links, dates, ratings, and availability snapshots without inventing
+or silently correcting facts. Include only minimal earlier context when it is
+needed to make the delta understandable, and do not treat that context as a
+new claim. For an already supplied artifact, preserve its content and add only
 minimal capture metadata.
 
 Draft the capture outside `raw/` (for example, in a temporary file), then
@@ -51,7 +73,7 @@ older capture.
 ### 2. Deduplicate by semantic review before writing
 
 Do not use a deterministic duplicate scanner or a fixed similarity threshold.
-Dynamically identify the candidate's topics, named entities, questions,
+First apply the session checkpoint. Then dynamically identify the candidate's topics, named entities, questions,
 decisions, dates, ratings, availability claims, and other substantive claims.
 Search for those signals across `raw/`, `wiki/sources/`, and the smallest
 relevant set of maintained pages, then read the likely matches in full.
@@ -93,8 +115,10 @@ page over creating a near-duplicate. Add new pages and source notes to
 Check for broken wikilinks, orphan maintained pages, missing source links,
 duplicate page titles, stale or contradictory claims, and important concepts
 without pages. Fix only issues supported by available sources; record unresolved
-issues for human review. Append one dated `ingest` or `duplicate-skipped`
-entry and one dated `lint` entry to the append-only `log.md`.
+issues for human review. Append one dated `ingest` or `duplicate-skipped` entry
+and one dated `lint` entry to the append-only `log.md`. For an ingest, include a
+`Session checkpoint:` line describing the material covered and an `Ingest
+scope:` line set to `full-session` or `since <previous checkpoint>`.
 
 At minimum, use repository searches to inspect links and traceability:
 
@@ -118,7 +142,7 @@ works but push fails, keep the commit and report the exact recovery needed.
 
 ## Completion report
 
-Report the raw capture decision, similar sources reviewed, claim-level delta or
-conflict decision, files changed, lint result, commit hash, push result, and
-unresolved questions. Include links to the new or updated wiki pages and source
-note.
+Report the raw capture decision, session checkpoint and scope, similar sources
+reviewed, claim-level delta or conflict decision, files changed, lint result,
+commit hash, push result, and unresolved questions. Include links to the new or
+updated wiki pages and source note.

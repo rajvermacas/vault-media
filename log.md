@@ -59,3 +59,10 @@ Append-only activity log. Each entry records a meaningful change to the wiki.
   commit/push handling.
 - Updated duplicate handling to require dynamic, claim-level semantic review by
   the agent rather than a deterministic scanner or fixed threshold.
+
+## [2026-07-18] maintenance | session-delta ingestion
+
+- Updated the project skill to use the most recent successful ingest as the
+  default checkpoint for subsequent ingestion requests in the same session.
+- Added explicit full-session refresh and re-ingest overrides plus checkpoint
+  reporting requirements.
