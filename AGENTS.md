@@ -22,6 +22,20 @@ wiki is the maintained synthesis; the raw collection is the source of truth.
   files there when working in this project; it is separate from Codex's global
   memory store.
 
+## Instruction precedence and project memory
+
+- This `AGENTS.md` is authoritative for all work in this vault.
+- Before taking action, read `index.md` and any relevant files under
+  `.codex/memories/`.
+- Project-local memory is authoritative within this project and is separate from
+  global Codex memory.
+- When the user says “project memory,” update `.codex/memories/` only. Do not
+  update global Codex memory unless the user explicitly says “global memory.”
+- If project-local and global memories conflict, project-local memory wins for
+  this vault.
+- Before adding a preference, inspect existing project memory and update the
+  appropriate existing file when possible. Report the exact file changed.
+
 ## Page conventions
 
 Maintained wiki pages should use YAML frontmatter when practical:
@@ -60,9 +74,11 @@ source; do not silently choose a winner.
 
 ### Query
 
-1. Read `index.md` first, then the smallest relevant set of wiki pages.
-2. Answer with links back to the wiki and source notes.
-3. If the answer contains durable synthesis, offer or create a page under
+1. Read `index.md` and relevant `.codex/memories/` files first.
+2. Treat project-local preferences as applicable context for the answer.
+3. Read the smallest relevant set of wiki pages.
+4. Answer with links back to the wiki and source notes.
+5. If the answer contains durable synthesis, offer or create a page under
    `wiki/queries/` and update the index and log.
 
 ### Lint
