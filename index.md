@@ -26,6 +26,7 @@ individual pages.
 
 - [[wiki/queries/city-as-character-series]] — Screened recommendations for the *Twin Peaks*/*Dark*/*Ozark*/*Banshee* atmosphere.
 - [[wiki/queries/alexandra-daddario-movie-identification]] — Identification and viewing details for *The Layover*.
+- [[wiki/queries/glamorous-alexandra-daddario-ana-de-armas-movies]] — Screened movie set for glamorous, entertaining picks featuring either actress.
 
 ## Maintenance queue
 

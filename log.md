@@ -40,3 +40,14 @@ Append-only activity log. Each entry records a meaningful change to the wiki.
   duplicate maintained-page titles.
 - Found no broken wikilinks or duplicate maintained pages; availability remains
   a time- and country-dependent snapshot.
+
+## [2026-07-18] ingest | Alexandra Daddario and Ana de Armas recommendation set
+
+- Added immutable raw capture [[raw/alexandra-daddario-ana-de-armas-recommendations-2026-07-18]] for the complete movie set discussed in the recommendation thread.
+- Created [[wiki/sources/alexandra-daddario-ana-de-armas-recommendations]] and durable query page [[wiki/queries/glamorous-alexandra-daddario-ana-de-armas-movies]].
+- Preserved the existing detailed [[wiki/sources/alexandra-daddario-the-layover]] source note.
+
+## [2026-07-18] lint | post-recommendation-set ingest
+
+- Checked wikilinks, source traceability, maintained-page reachability, and duplicate maintained-page titles.
+- Flagged all streaming details as country- and date-dependent snapshots; no broken wikilinks found.
