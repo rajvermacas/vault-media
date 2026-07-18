@@ -25,3 +25,18 @@ Append-only activity log. Each entry records a meaningful change to the wiki.
   pages.
 - Corrected the stale overview statement that the vault still had one source
   and was domain-neutral.
+
+## [2026-07-18] ingest | Alexandra Daddario movie identification
+
+- Added immutable raw capture [[raw/alexandra-daddario-the-layover-2026-07-18]]
+  containing verified plot, ratings, and India availability details for
+  *The Layover*.
+- Created [[wiki/sources/alexandra-daddario-the-layover]] and durable query
+  page [[wiki/queries/alexandra-daddario-movie-identification]].
+
+## [2026-07-18] lint | post-*The Layover* ingest
+
+- Checked wikilinks, source traceability, maintained-page reachability, and
+  duplicate maintained-page titles.
+- Found no broken wikilinks or duplicate maintained pages; availability remains
+  a time- and country-dependent snapshot.
