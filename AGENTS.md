@@ -18,6 +18,9 @@ wiki is the maintained synthesis; the raw collection is the source of truth.
   - `wiki/queries/` stores useful answers and analyses that should persist.
 - `index.md` is the content-oriented catalog of the wiki.
 - `log.md` is append-only and records ingests, queries, and lint passes.
+- `.codex/memories/` contains project-local context for this vault. Read relevant
+  files there when working in this project; it is separate from Codex's global
+  memory store.
 
 ## Page conventions
 
