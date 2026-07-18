@@ -16,3 +16,12 @@ Append-only activity log. Each entry records a meaningful change to the wiki.
   page [[wiki/queries/city-as-character-series]].
 - Flagged unresolved availability for *The Kettering Incident* and the
   country-specific nature of JustWatch snapshots.
+
+## [2026-07-18] lint | post-Reddit ingest
+
+- Checked wikilinks, source traceability, maintained-page reachability, and
+  duplicate top-level page titles.
+- Found no broken wikilinks, orphaned maintained pages, or duplicate maintained
+  pages.
+- Corrected the stale overview statement that the vault still had one source
+  and was domain-neutral.

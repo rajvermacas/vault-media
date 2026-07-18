@@ -24,9 +24,9 @@ it, updates the structured synthesis under `wiki/`, and records the work in
 
 ## Current state
 
-The vault is bootstrapped with one source and one initial concept page. It is
-intentionally domain-neutral until more sources establish the first subject
-area.
+The vault is bootstrapped with two sources, one concept page, and one durable
+query page. Its first subject area is television recommendations focused on
+place-led atmosphere, mystery, crime, and horror.
 
 ## Design principles
 
